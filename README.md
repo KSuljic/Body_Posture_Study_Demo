@@ -1,4 +1,4 @@
-# Body Posture StudyDemo
+# Body Posture Study Demo
  
 
 Author: Kenan Suljić  
@@ -9,27 +9,43 @@ Under supervision of: Prof. Tobias Heed
 
 ## Intro 
 
-
+This woman's posture is unusual: her arms are crossed above the head. If limbs in unusual postures, e.g. crossed, are touched almost simultanusly, unusual things happen. For example touching the limbs in the order right > left in rapid successsion, can lead to the impression that one has been touched left > right. It can even be that a touch on the right hand is perceived as being on the left hand, alhtough there never was a touch. 
 
   <img src="/Intro/cross.webp" alt="crossedarms" height="500">
 
-This is visible in electroencephalograms or also known as EEGs. 
-   
-Even more: a) your brain processes touch differently, if your hands are near or far away from each other and also b) if they are moving during the touch or not.  
   
-All visible in the EEG (pretty cool, right?).  
-  
-  
-We asked: 
-- Is this also true for passively moved hands? 
-- Bonus: is this also true for continuously attended hands?  
-  
+A touch on the body can be classified according to different frame of references, e.g. anatomical (skin based) or external (based on space).  
 
-This was not done before, because EEG + movements is a very difficult thing to do. Normally, participants have to remain very still. We solved it via computational modelling.
+We wanted to investigate this strange behaviour with cognitive models. We used:  
+- Drift Diffusion Model (DDM)
+- Dual-Stage Two-Phase (DSTP) Model
+  
+  To ask:
+- what happens during the processing of the touch if stimulus and/or response limbs are crossed?
+- what changes if response modes change?  
   
   
-**TLDR**; yes. We see differences between actively and passively moved hands in the EEG. Also, suprisingly, continously attended hands also show distance effects.  
- 
+**TLDR**;  
+In our task, the touch process itself is impeded on the  
+- stimulus coding level  
+- response coding level
+  
+- in turn participants adjust their decision threshold to compensate for that  
+  
+- crossed response limbs led to impairments on the 
+    - stimulus selection process
+    - second response selection process  
+    if response
+    - in an anatomical reference frame and/or 
+    - to an incongruent activation of the canonical reference frame 
+
+- crossed stimulus limbs led to impairments
+    - on the initial response selection phase
+
+Bonus:
+- top-down influence on the stimulus coding, but more so on the response coding level at later stages
+  
+- Dynamic reweighing of reference frames visible  
 
 
 
@@ -37,104 +53,157 @@ This was not done before, because EEG + movements is a very difficult thing to d
 
 ### Setup
 
-Experimental Setup. We used the KINARM EndPoint Robot™  in combination with an EEG-system. A augmented reality display showed the experiment. An airsled accomplished frictionsless movements. Responses were made with a foot button.  
+Experimental Setup. Body posture could be: arms [uncrossed/crossed], legs [uncrossed/crossed] with response mode [anatomical/external]
   
-Figure (Kenan Suljić under CC BY-NC-SA) adapted from Wood et al. (2019) under the CC BY-NC 4.0 licence.
+Figure (Kenan Suljić under All Rights Reserved) adapted from Ossandon et al. (2019).
 
-![Setup](/Methods/Setup.png)
-
-
-Figure (Kenan Suljić under CC BY-NC-SA) showing the distances used in our experiment.
-
-![nearVSfar](/Methods/nearfar.png)
+![Setup](/Methods/setup.png)
 
 
+### Cognitive Models
 
-### EEG Recording Examples
+Figure (Kenan Suljić under CC BY-NC-SA) show cognitive models used, i.e. the DDM and DSTP model.
   
-Example of an EEG recording (Andrii Cherninskyi licensed under CC BY-SA 4.0).  
+DDM:  
+![DDM](/Intro/DDM.png)
   
-  We used unsupervised machine learning to detect and clean up anomalies in our EEG recordings (example only).
-  
-![EEGrecording](/Methods/Unsupervised.png)
-  
-  
+DSTP:    
+![DSTP](/Intro/DSTP.png)
 
+
+  
 ## Results
   
-### Checkups
 
-
-### Tactile stimulation 
-
-EEG distrubution over the brain after a tactile stimulus (good).
+### Behaviour
   
-![Stimulus](/Results/TactileBeta.png)
+Visualization of the behaviour: response times and response accuracies.
 
-
-
-  
-We checked Responses (good):
-  
-![Responses](/Results/ResponseProb.png)
-
-  
-As well as Kinarm forces for active (good) and passive movements (also good):
-
-![Forces](/Results/KinarmForces.png)
-
-  
-### Interference Signal
-  
-We noticed an interference signal in the data due to the motions. We excluded it via a linear deconvolution model:
-  
-  This way different events (button press, movements, experimental stimulation, etc.) can be isolated.
-
-  Figure reproduced from Dimigen & Ehinger (2021) under the CC BY-NC-ND 4.0 licence.
-
-![Model](/Methods/LinearDeconvolution.png)
-
-  
-  One before (left) vs after (right) example. On the left picture there is a noticable "drift" in the solid lines (EEG traces).  
-  After the extraction via the model there is no drift anymore and the lines are comparable!
-
-
-![beforevsafter](/Results/DeconvReconstruction.png)  
+![responses](/Results/Responses.png)
   
 
+Code to make this plot:
+
+```python
+
+# Define the color palette for different conditions
+palette_condition = ['#c0bcb5', '#3a7d44', '#22577a', '#ff101f']
+
+# Define the order of conditions and corresponding color palette and labels for plotting
+condition_order = ['ex_HU_LU', 'ex_HX_LU', 'ex_HU_LX', 'ex_HX_LX', 
+                   'ana_HU_LU', 'ana_HX_LU', 'ana_HU_LX', 'ana_HX_LX']
+color_palette = ['grey', 'green', 'blue', 'red']
+condition_labels = ['AU/LU', 'AX/LU', 'AU/LX', 'AX/LX']
+
+# Initialize a 2x2 subplot layout with figure size specified
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+response_modes = ['External', 'Anatomical']  # Define response modes for plotting
+
+# Plot violin plots for response times in the upper row of subplots
+for i, response_mode in enumerate(['ex', 'ana']):
+    ax = sns.violinplot(x='condition', y='trial_RT_ms', hue='trial_correct',
+                        data=df[df['block_condition'].str.startswith(response_mode)], 
+                        order=condition_order[:4] if response_mode == 'ex' else condition_order[4:], 
+                        palette=['red', 'darkgreen'], fill=False, inner="quart", split=True, ax=axes[0, i])
+    ax.set_title(f'Response Time \n {response_modes[i]} Response Mode')
+    ax.set_xlabel('Condition')
+    ax.set_ylim(0, 2000)
+    ax.set_ylabel('Response Time [ms]')
+    ax.legend(title='Correctness')
+    ax.set_xticklabels(condition_labels)
+    ax.set_yticks(np.arange(0, 2100, step=100))
+    ax.yaxis.grid(True, linestyle='-', alpha=0.20)  # Enhance grid visibility for better readability
+
+    # Adjust legend to more intuitive labels
+    handles, labels = ax.get_legend_handles_labels()
+    new_labels = ['Error' if label == '0' else 'Correct' for label in labels]
+    ax.legend(handles, new_labels, title='Correctness', bbox_to_anchor=(1.01, 1), loc='upper right')
+
+# Plot boxplots and strip plots for accuracy in the lower row of subplots
+for i, response_mode in enumerate(['ex', 'ana']):
+    accuracy_df = df[df['block_condition'].str.startswith(response_mode)].groupby(['subjIndx', 'condition'])['trial_correct'].mean().reset_index()
+    accuracy_df['trial_correct'] *= 100  # Convert accuracy to percentage
+    ax = sns.boxplot(x='condition', y='trial_correct', data=accuracy_df, 
+                     order=condition_order[:4] if response_mode == 'ex' else condition_order[4:], 
+                     palette=palette_condition, fill=False, ax=axes[1, i])
+    
+    sns.stripplot(x='condition', y='trial_correct', data=accuracy_df, 
+                  order=condition_order[:4] if response_mode == 'ex' else condition_order[4:], 
+                  palette=palette_condition, edgecolor='white', linewidth=1, alpha=0.5, ax=axes[1, i])
+    
+    ax.set_title(f'Response Accuracy \n {response_modes[i]} Response Mode')
+    ax.set_xlabel('Condition')
+    ax.set_ylabel('Accuracy [%]')
+    ax.set_ylim(45, 100)  # Set y-axis limits to show accuracy as percentage
+    ax.set_xlim(-0.5, 3.5)  # Set x-axis limits for neat alignment
+    ax.hlines(y=50, xmin=-0.5, xmax=3.5, colors='black', linestyles='--', label='Chance Level')
+    ax.text(x=2.5, y=47, s='Chance Level', color='black')
+    ax.set_xticklabels(condition_labels)
+    ax.set_yticks(np.arange(45, 105, step=5))
+    ax.yaxis.grid(True, linestyle='-', alpha=0.20)
+
+# Adjust layout to prevent overlap and save the figure
+plt.tight_layout()
+plt.savefig('../../Plots/RT_RA_Plot.png', dpi=600)
+plt.show()
 
 
 
-### EEG over the Scalp
+```
 
-This is an example for the signals over the scalp. We grouped the EEG electrodes into 7 groups.
 
-![ActiveEEG](/Results/ActiveMoving.png)
+### Model Comparison
+
+#### DDM
+
+Comparing DDM with empirical data.
+
+Probability Density Estimations (PDEs):  
+![DDM_PDE](/Results/DDM_PDE.png)
+
+Conditional Accuracy Functions (CAFs):  
+![DDM_CAF](/Results/DDM_CAF.png)
   
+Delta Function (DFs)  
+![DDM_DF](/Results/DDM_DF.png)
   
-We also used control stimuli. They should show no systematic signal, which is the case:
 
-![ActiveEmpty](/Results/ActiveEmpty.png)
+DDM Parameters:  
 
-
-### Hypthesis testing
-
-We tested some hypotheses by cluster permutation testing: the EEG traces were compared to check for significant differences.
-Here an example:  
-
-![Permutation](/Results/C_Parietal.png)
+![DDM_Parameters](/Results/DDM_Parameters.png)
 
 
-### Active vs Passive
+#### DSTP
 
-Here we see a schema of a part of the results: During active movements we see differences in near vs far stimulation (red diamonts), but not in the passive condition.  
-This means the brain tracks the distances between the hands only for active movements!
+Comparing DSTP with empirical data.
 
-![Schema](/Results/SchemaDistance.png)
+Probability Density Estimations (PDEs):  
+![DSTP_PDE](/Results/DSTP_PDE.png)
+
+Conditional Accuracy Functions (CAFs):  
+![DSTP_CAF](/Results/DSTP_CAF.png)
+  
+Delta Function (DFs)  
+![DSTP_DF](/Results/DSTP_DF.png)
+  
+
+DSTP Parameters:  
+
+![DSTP_Parameters](/Results/DSTP_Parameters.png)
+
+DSTP Parameter Comparisons:  
+
+![DDM_Parameter_Comp](/Results/DSTP_Parameter_comparisons.png)
+
+
+### Time Schema
+
+I created a time schema for the DSTP model to better understand the timings of the phases for each condition.
+
+
+![Schema](/Results/TimeSchema.png)
 
 
 # References
 
-Dimigen, O., & Ehinger, B. V. (2021). Regression-based analysis of combined EEG and eye-tracking data: Theory and applications. Journal of vision, 21(1), 3-3.  
-  
-Wood, M. D., Khan, J., Lee, K. F., Maslove, D. M., Muscedere, J., Hunt, M., ... & Boyd, J. G. (2019). Assessing the relationship between near-infrared spectroscopy-derived regional cerebral oxygenation and neurological dysfunction in critically ill adults: a prospective observational multicentre protocol, on behalf of the Canadian critical care trials group. BMJ open, 9(6), e029189.
+Ossandon, Suljic, Heed (in prep)
