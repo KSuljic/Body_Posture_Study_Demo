@@ -11,7 +11,7 @@ Under supervision of: Prof. Tobias Heed
 
 
 
-  <img src="/Methods/cross.webp" alt="crossedarms" height="500">
+  <img src="/Intro/cross.webp" alt="crossedarms" height="500">
 
 This is visible in electroencephalograms or also known as EEGs. 
    
