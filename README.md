@@ -9,7 +9,7 @@ Under supervision of: Prof. Tobias Heed
 
 ## Intro 
 
-This woman's posture is unusual: her arms are crossed above the head. If limbs in unusual postures, e.g. crossed, are touched almost simultanusly, unusual things happen. For example touching the limbs in the order right > left in rapid successsion, can lead to the impression that one has been touched left > right. It can even be that a touch on the right hand is perceived as being on the left hand, alhtough there never was a touch. 
+This woman adopts a distinctive posture with her arms crossed above her head. When our limbs are positioned unusually, such as crossed or intertwined, our sense of touch can play intriguing tricks on us. For instance, if someone touches the limbs in quick succession, from right to left, it might feel as though the sequence was reversed, from left to right. Remarkably, a touch on the right hand might even be perceived as occurring on the left hand, despite no contact being made there. This sensory illusion highlights the complex and sometimes surprising ways our brain interprets touch and body position.  
 
   <img src="/Intro/cross.webp" alt="crossedarms" height="500">
 
