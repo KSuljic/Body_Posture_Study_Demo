@@ -9,44 +9,36 @@ Under supervision of: Prof. Tobias Heed
 
 ## Intro 
 
-This woman adopts a distinctive posture with her arms crossed above her head. When our limbs are positioned unusually, such as crossed or intertwined, our sense of touch can play intriguing tricks on us. For instance, if someone touches the limbs in quick succession, from right to left, it might feel as though the sequence was reversed, from left to right. Remarkably, a touch on the right hand might even be perceived as occurring on the left hand, despite no contact being made there. This sensory illusion highlights the complex and sometimes surprising ways our brain interprets touch and body position.  
+# A Cognitive Model Study on Touch Perception
+
+This repository dives into the fascinating interplay between body posture and sensory perception. When our limbs are positioned unusually, such as being crossed or intertwined, our brain's interpretation of touch can lead to intriguing sensory illusions. For example, touching the limbs in quick succession from right to left might be perceived in the reverse order, or a touch on the right hand might be felt on the left, without any actual contact. These phenomena underscore the complex and sometimes surprising ways our brain processes touch and body positions.
 
   <img src="/Intro/cross.webp" alt="crossedarms" height="500">
 
-  
-A touch on the body can be classified according to different frame of references, e.g. anatomical (skin based) or external (based on space).  
+## Study Focus:
+We investigate these sensory quirks using sophisticated cognitive models:
+- **Drift Diffusion Model (DDM)**: Explores the decision-making process at a fundamental level.
+- **Dual-Stage Two-Phase (DSTP) Model**: Offers deeper insights into decision-making dynamics during conflicting sensory inputs.
 
-We wanted to investigate this strange behaviour with cognitive models. We used:  
-- Drift Diffusion Model (DDM)
-- Dual-Stage Two-Phase (DSTP) Model
-  
-  To ask:
-- what happens during the processing of the touch if stimulus and/or response limbs are crossed?
-- what changes if response modes change?  
-  
-  
-**TLDR**;  
-In our task, the touch process itself is impeded on the  
-- stimulus coding level  
-- response coding level
-  
-- in turn participants adjust their decision threshold to compensate for that  
-  
-- crossed response limbs led to impairments on the 
-    - stimulus selection process
-    - second response selection process  
-    if response
-    - in an anatomical reference frame and/or 
-    - to an incongruent activation of the canonical reference frame 
 
-- crossed stimulus limbs led to impairments
-    - on the initial response selection phase
+## Key Research Questions:
+- How does the processing of touch change when stimulus and/or response limbs are crossed?
+- What are the effects of changing response modes on sensory perception?
 
-Bonus:
-- top-down influence on the stimulus coding, but more so on the response coding level at later stages
-  
-- Dynamic reweighing of reference frames visible  
 
+## Findings Summary:
+- **Impairments Identified**: Touch processing is notably impeded at both the stimulus coding and response coding levels, compelling participants to adjust their decision thresholds.
+- **Impact of Crossed Limbs**:
+  - **Stimulus Limbs**: Crossing affects the initial response selection phase.
+  - **Response Limbs**: Leads to challenges in the stimulus selection and the second response selection processes, when responses are within an anatomical reference frame or involve incongruent activations of the canonical reference frame.
+
+
+## Bonus Insights:
+- **Top-Down Influence**: There is a significant top-down effect on stimulus coding, with a more pronounced impact on response coding at later stages.
+- **Dynamic Reweighing**: The study shows dynamic reweighing of reference frames, providing new insights into how our brains adapt to complex sensory environments.
+
+**TL;DR**:
+In our tasks, the tactile processing is hindered at various levels, leading to compensatory adjustments in decision thresholds. The crossing of limbs, whether for stimulating or responding, introduces significant impairments that influence both stimulus and response selection processes.
 
 
 ## Methods
