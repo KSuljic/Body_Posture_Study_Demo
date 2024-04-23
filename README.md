@@ -1,4 +1,6 @@
 # Body Posture Study Demo
+
+Note: All figures under CC BY-NC-SA licence.
  
 
 Author: Kenan Suljić  
