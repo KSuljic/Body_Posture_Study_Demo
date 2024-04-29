@@ -1,10 +1,9 @@
 # Body Posture Study Demo
 
-Note: All figures under CC BY-NC-SA licence.
- 
+Note: All rights reserved. 
 
 Author: Kenan Suljić  
-Date: 22.04.2024  
+Date: 29.04.2024  
   
 Under supervision of: Prof. Tobias Heed  
 
@@ -49,14 +48,14 @@ In our tasks, the tactile processing is hindered at various levels, leading to c
 
 Experimental Setup. Body posture could be: arms [uncrossed/crossed], legs [uncrossed/crossed] with response mode [anatomical/external]
   
-Figure (Kenan Suljić under All Rights Reserved) adapted from Ossandon et al. (2019).
+Figure adapted from Ossandon et al. (2019).
 
 ![Setup](/Methods/setup.png)
 
 
 ### Cognitive Models
 
-Figure (Kenan Suljić under CC BY-NC-SA) show cognitive models used, i.e. the DDM and DSTP model.
+Figure show cognitive models used, i.e. the DDM and DSTP model.
   
 DDM:  
 ![DDM](/Intro/DDM.png)
